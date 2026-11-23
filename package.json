@@ -1,0 +1,22 @@
+{
+  "name": "apitestingclaudeimport",
+  "version": "1.0.0",
+  "description": "api testing for cluse",
+  "homepage": "https://github.com/ncolley43/APItestingClaudeimport#readme",
+  "bugs": {
+    "url": "https://github.com/ncolley43/APItestingClaudeimport/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncolley43/APItestingClaudeimport.git"
+  },
+  "license": "ISC",
+  "author": "nik",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {},
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6"
+  }
+}
