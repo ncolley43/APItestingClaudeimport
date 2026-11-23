@@ -34,18 +34,32 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    /* API tests (no browser) – restful-booker GetBookingIds */
+    {
+      name: 'api',
+      testDir: './tests/BookingID',
+      fullyParallel: false, // tests share data created in beforeAll
+      use: {
+        baseURL: process.env.BASE_URL ?? 'https://restful-booker.herokuapp.com',
+        extraHTTPHeaders: { Accept: 'application/json' },
+      },
+    },
+
     {
       name: 'chromium',
+      testIgnore: '**/BookingID/**',
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testIgnore: '**/BookingID/**',
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testIgnore: '**/BookingID/**',
       use: { ...devices['Desktop Safari'] },
     },
 
