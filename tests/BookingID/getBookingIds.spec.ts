@@ -1,4 +1,5 @@
-import { test, expect, APIRequestContext, APIResponse } from '@playwright/test';
+import { APIRequestContext, APIResponse } from '@playwright/test';
+import { test, expect, withLogging } from './fixtures';
 import { actual, createBooking, deleteBooking, expected, expectNoServerError, getToken, ids } from './helpers';
 
 /**
@@ -10,6 +11,9 @@ import { actual, createBooking, deleteBooking, expected, expectNoServerError, ge
  *
  * Every test records an "Expected" and an "Actual" annotation, shown in the HTML report.
  * "Actual" is recorded before the assertions so it is visible even when a test fails.
+ *
+ * Every API call a test makes (request sent + response returned) is written to a results file
+ * per test – see fixtures.ts.
  */
 
 // Unique run id and names
@@ -146,9 +150,9 @@ test.describe('Booking - GetBookingIds', () => {
       expect(found).not.toContain(tempId);
     });
 
-    test('TC-07 Endpoint needs no authentication', async ({ playwright, baseURL }) => {
+    test('TC-07 Endpoint needs no authentication', async ({ playwright, baseURL, apiLog }) => {
       expected('HTTP 200 with no cookies or auth headers');
-      const anon = await playwright.request.newContext({ baseURL }); // no cookies, no auth headers
+      const anon = withLogging(await playwright.request.newContext({ baseURL }), apiLog); // no cookies, no auth headers
       const res = await anon.get('/booking');
       actual(st(res));
       expect(res.status()).toBe(200);
