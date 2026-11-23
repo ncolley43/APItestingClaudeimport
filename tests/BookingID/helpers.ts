@@ -1,4 +1,14 @@
-import { APIRequestContext, APIResponse, expect } from '@playwright/test';
+import { APIRequestContext, APIResponse, expect, test } from '@playwright/test';
+
+/** Adds an "Expected" entry to the test's results in the HTML report. Call at the start of a test. */
+export function expected(text: string) {
+  test.info().annotations.push({ type: 'Expected', description: text });
+}
+
+/** Adds an "Actual" entry to the test's results. Call BEFORE the assertions so it is recorded even when the test fails. */
+export function actual(text: string) {
+  test.info().annotations.push({ type: 'Actual', description: text });
+}
 
 export interface BookingData {
   firstname: string;
